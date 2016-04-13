@@ -7,8 +7,8 @@
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
 
 Name:         openstack-trove-ui
-Version:      6.0.0
-Release:      1%{?dist}
+Version:      XXX
+Release:      XXX
 Summary:      Trove Management Dashboard
 
 License:      ASL 2.0
@@ -89,7 +89,5 @@ PYTHONPATH=/usr/share/openstack-dashboard/ ./run_tests.sh -N -P
 %{_sysconfdir}/openstack-dashboard/enabled/_1740_project_database_clusters_panel.py*
 
 %changelog
-* Wed Apr 13 2016 Haïkel Guémar <hguemar@fedoraproject.org> - 6.0.0-1
-- Upstream 6.0.0 (based on Pete McKinnon initial spec)
 
 
