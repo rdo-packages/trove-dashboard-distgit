@@ -1,3 +1,5 @@
-# UUID                                  	Group Name
-#
-d0e3b4b8e2e7ee3cf5bacf1818fdd2176fee98c4	openstack/trove-dashboard-distgit-ptl
+# UUID          Group Name
+False 	Non-Interactive Users
+e00de708a07d5eedf0860aa9c5149dea8b1f6464       	openstack/trove-dashboard-distgit-core
+d0e3b4b8e2e7ee3cf5bacf1818fdd2176fee98c4        	openstack/trove-dashboard-distgit-ptl
+global:Registered-Users		Registered Users
