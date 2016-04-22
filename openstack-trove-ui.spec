@@ -8,7 +8,7 @@
 
 Name:         openstack-trove-ui
 Version:      6.0.0
-Release:      1%{?dist}
+Release:      2%{?dist}
 Summary:      Trove Management Dashboard
 
 License:      ASL 2.0
@@ -17,6 +17,7 @@ Source0:      http://tarballs.openstack.org/%{pypi_name}/%{pypi_name}-%{upstream
 BuildArch:    noarch
 
 BuildRequires: python2-devel
+BuildRequires: python-setuptools
 BuildRequires: python-pbr
 BuildRequires: python-sphinx
 BuildRequires: python-oslo-sphinx
@@ -56,9 +57,14 @@ pushd .
 cd %{mod_name}/enabled
 for f in `ls _17*.py`
 do
-  mv $f %{buildroot}%{_sysconfdir}/openstack-dashboard/enabled/$f
+  cp -a $f %{buildroot}%{_sysconfdir}/openstack-dashboard/enabled/$f
   ln -s %{_sysconfdir}/openstack-dashboard/enabled/$f \
-        %{buildroot}%{_datadir}/openstack-dashboard/openstack_dashboard/local/enabled/$f 
+        %{buildroot}%{_datadir}/openstack-dashboard/openstack_dashboard/local/enabled/$f
+  ln -s %{_sysconfdir}/openstack-dashboard/enabled/${f}o \
+        %{buildroot}%{_datadir}/openstack-dashboard/openstack_dashboard/local/enabled/${f}o
+  ln -s %{_sysconfdir}/openstack-dashboard/enabled/${f}c \
+        %{buildroot}%{_datadir}/openstack-dashboard/openstack_dashboard/local/enabled/${f}c
+
 done
 popd
 
@@ -77,11 +83,11 @@ PYTHONPATH=/usr/share/openstack-dashboard/ ./run_tests.sh -N -P
 %license LICENSE
 %{python2_sitelib}/%{mod_name}
 %{python2_sitelib}/*.egg-info
-%{_datadir}/openstack-dashboard/openstack_dashboard/local/enabled/_1710_database_panel_group.py
-%{_datadir}/openstack-dashboard/openstack_dashboard/local/enabled/_1720_project_databases_panel.py
-%{_datadir}/openstack-dashboard/openstack_dashboard/local/enabled/_1730_project_database_backups_panel.py
-%{_datadir}/openstack-dashboard/openstack_dashboard/local/enabled/_1731_project_database_backups_panel.py
-%{_datadir}/openstack-dashboard/openstack_dashboard/local/enabled/_1740_project_database_clusters_panel.py
+%{_datadir}/openstack-dashboard/openstack_dashboard/local/enabled/_1710_database_panel_group.py*
+%{_datadir}/openstack-dashboard/openstack_dashboard/local/enabled/_1720_project_databases_panel.py*
+%{_datadir}/openstack-dashboard/openstack_dashboard/local/enabled/_1730_project_database_backups_panel.py*
+%{_datadir}/openstack-dashboard/openstack_dashboard/local/enabled/_1731_project_database_backups_panel.py*
+%{_datadir}/openstack-dashboard/openstack_dashboard/local/enabled/_1740_project_database_clusters_panel.py*
 %{_sysconfdir}/openstack-dashboard/enabled/_1710_database_panel_group.py*
 %{_sysconfdir}/openstack-dashboard/enabled/_1720_project_databases_panel.py*
 %{_sysconfdir}/openstack-dashboard/enabled/_1730_project_database_backups_panel.py*
@@ -89,6 +95,9 @@ PYTHONPATH=/usr/share/openstack-dashboard/ ./run_tests.sh -N -P
 %{_sysconfdir}/openstack-dashboard/enabled/_1740_project_database_clusters_panel.py*
 
 %changelog
+* Fri Apr 22 2016 Haïkel Guémar <hguemar@fedoraproject.org> - 6.0.0-2
+- Create symlinks for bytecode files
+
 * Wed Apr 13 2016 Haïkel Guémar <hguemar@fedoraproject.org> - 6.0.0-1
 - Upstream 6.0.0 (based on Pete McKinnon initial spec)
 
