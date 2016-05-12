@@ -54,19 +54,17 @@ mkdir -p  %{buildroot}%{_sysconfdir}/openstack-dashboard/enabled
 mkdir -p  %{buildroot}%{_datadir}/openstack-dashboard/openstack_dashboard/local/enabled
 
 pushd .
-cd %{mod_name}/enabled
-for f in `ls _17*.py`
-do
-  cp -a $f %{buildroot}%{_sysconfdir}/openstack-dashboard/enabled/$f
-  ln -s %{_sysconfdir}/openstack-dashboard/enabled/$f \
-        %{buildroot}%{_datadir}/openstack-dashboard/openstack_dashboard/local/enabled/$f
-  ln -s %{_sysconfdir}/openstack-dashboard/enabled/${f}o \
-        %{buildroot}%{_datadir}/openstack-dashboard/openstack_dashboard/local/enabled/${f}o
-  ln -s %{_sysconfdir}/openstack-dashboard/enabled/${f}c \
-        %{buildroot}%{_datadir}/openstack-dashboard/openstack_dashboard/local/enabled/${f}c
-
+cd %{buildroot}%{python2_sitelib}/%{mod_name}/enabled
+for f in _17*.py*; do
+    mv ${f} %{buildroot}%{_datadir}/openstack-dashboard/openstack_dashboard/local/enabled/
 done
 popd
+
+for f in %{buildroot}%{_datadir}/openstack-dashboard/openstack_dashboard/local/enabled/_17*.py*; do
+    filename=`basename $f`
+    ln -s %{_datadir}/openstack-dashboard/openstack_dashboard/local/enabled/${filename} \
+        %{buildroot}%{_sysconfdir}/openstack-dashboard/enabled/${filename}
+done
 
 # Move static files to horizon. These require that you compile them again
 # post install { python manage.py compress }
@@ -84,7 +82,7 @@ PYTHONPATH=/usr/share/openstack-dashboard/ ./run_tests.sh -N -P
 %{python2_sitelib}/%{mod_name}
 %{python2_sitelib}/*.egg-info
 %{_datadir}/openstack-dashboard/openstack_dashboard/local/enabled/_1710_database_panel_group.py*
-%{_datadir}/openstack-dashboard/openstack_dashboard/local/enabled/_1720_project_databases_panel.py*
+%{_datadir}/openstack-dashboard/openstack_dashboard/local/enabled/_1719_project_databases_panel.py*
 %{_datadir}/openstack-dashboard/openstack_dashboard/local/enabled/_1730_project_database_backups_panel.py*
 %{_datadir}/openstack-dashboard/openstack_dashboard/local/enabled/_1731_project_database_backups_panel.py*
 %{_datadir}/openstack-dashboard/openstack_dashboard/local/enabled/_1740_project_database_clusters_panel.py*
