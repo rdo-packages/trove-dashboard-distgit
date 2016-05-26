@@ -7,8 +7,8 @@
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
 
 Name:         openstack-trove-ui
-Version:      6.0.0
-Release:      2%{?dist}
+Version:      6.0.1
+Release:      1%{?dist}
 Summary:      Trove Management Dashboard
 
 License:      ASL 2.0
@@ -81,11 +81,11 @@ PYTHONPATH=/usr/share/openstack-dashboard/ ./run_tests.sh -N -P
 %license LICENSE
 %{python2_sitelib}/%{mod_name}
 %{python2_sitelib}/*.egg-info
-%{_datadir}/openstack-dashboard/openstack_dashboard/local/enabled/_1710_database_panel_group.py*
-%{_datadir}/openstack-dashboard/openstack_dashboard/local/enabled/_1719_project_databases_panel.py*
-%{_datadir}/openstack-dashboard/openstack_dashboard/local/enabled/_1730_project_database_backups_panel.py*
-%{_datadir}/openstack-dashboard/openstack_dashboard/local/enabled/_1731_project_database_backups_panel.py*
-%{_datadir}/openstack-dashboard/openstack_dashboard/local/enabled/_1740_project_database_clusters_panel.py*
+%{_datadir}/openstack-dashboard/openstack_dashboard/local/enabled/_17*_database_panel_group.py*
+%{_datadir}/openstack-dashboard/openstack_dashboard/local/enabled/_17*_project_databases_panel.py*
+%{_datadir}/openstack-dashboard/openstack_dashboard/local/enabled/_17*_project_database_backups_panel.py*
+%{_datadir}/openstack-dashboard/openstack_dashboard/local/enabled/_17*_project_database_backups_panel.py*
+%{_datadir}/openstack-dashboard/openstack_dashboard/local/enabled/_17*_project_database_clusters_panel.py*
 %{_sysconfdir}/openstack-dashboard/enabled/_1710_database_panel_group.py*
 %{_sysconfdir}/openstack-dashboard/enabled/_1720_project_databases_panel.py*
 %{_sysconfdir}/openstack-dashboard/enabled/_1730_project_database_backups_panel.py*
@@ -93,6 +93,10 @@ PYTHONPATH=/usr/share/openstack-dashboard/ ./run_tests.sh -N -P
 %{_sysconfdir}/openstack-dashboard/enabled/_1740_project_database_clusters_panel.py*
 
 %changelog
+* Thu May 26 2016 Haïkel Guémar <hguemar@fedoraproject.org> - 6.0.1-1
+- Upstream 6.0.1
+- Fix symlinks
+
 * Fri Apr 22 2016 Haïkel Guémar <hguemar@fedoraproject.org> - 6.0.0-2
 - Create symlinks for bytecode files
 
