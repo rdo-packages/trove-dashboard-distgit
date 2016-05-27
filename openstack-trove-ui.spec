@@ -20,6 +20,9 @@ BuildRequires: python2-devel
 BuildRequires: python-pbr
 BuildRequires: python-sphinx
 BuildRequires: python-oslo-sphinx
+# Required to compile translation files
+BuildRequires: python-django
+BuildRequires: gettext
 
 Requires: python-babel
 Requires: openstack-dashboard
@@ -44,6 +47,10 @@ find -size 0 -not -name '__init__.py' -delete
 
 %build
 %{__python2} setup.py build
+# Generate i18n files
+pushd build/lib/%{mod_name}
+django-admin compilemessages
+popd
 
 %install
 %{__python2} setup.py install --skip-build --root %{buildroot}
@@ -67,12 +74,19 @@ popd
 mkdir -p  %{buildroot}%{python2_sitelib}/%{mod_name}/static
 cp -r %{mod_name}/static/* %{buildroot}%{python2_sitelib}/%{mod_name}/static/
 
+# Remove .po and .pot (they are not required)
+rm -f %{buildroot}%{python2_sitelib}/%{mod_name}/locale/*/LC_*/django*.po
+rm -f %{buildroot}%{python2_sitelib}/%{mod_name}/locale/*pot
+
+# Find language files
+%find_lang django --all-name
+
 %check
 %if 0%{with tests}
 PYTHONPATH=/usr/share/openstack-dashboard/ ./run_tests.sh -N -P
 %endif
 
-%files
+%files -f django.lang
 %doc README.rst
 %license LICENSE
 %{python2_sitelib}/%{mod_name}
