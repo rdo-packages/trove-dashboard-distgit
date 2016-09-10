@@ -108,3 +108,4 @@ PYTHONPATH=/usr/share/openstack-dashboard/ ./run_tests.sh -N -P
 %changelog
 
 
+# REMOVEME: error caused by commit 
