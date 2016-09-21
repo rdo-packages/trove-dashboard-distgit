@@ -1,4 +1,4 @@
-%global milestone .0b3
+%global milestone .0rc1
 %global pypi_name trove-dashboard
 %global mod_name trove_dashboard
 
@@ -9,14 +9,14 @@
 
 Name:         openstack-trove-ui
 Version:      7.0.0
-Release:      0.1%{?milestone}%{?dist}
+Release:      0.2%{?milestone}%{?dist}
 Summary:      Trove Management Dashboard
 
 License:      ASL 2.0
 URL:          https://github.com/openstack/%{pypi_name}
 Source0:      http://tarballs.openstack.org/%{pypi_name}/%{pypi_name}-%{upstream_version}.tar.gz
 #
-# patches_base=7.0.0.0b3
+# patches_base=7.0.0.0rc1
 #
 
 BuildArch:    noarch
@@ -104,14 +104,19 @@ PYTHONPATH=/usr/share/openstack-dashboard/ ./run_tests.sh -N -P
 %{_datadir}/openstack-dashboard/openstack_dashboard/local/enabled/_1730_project_database_backups_panel.py*
 %{_datadir}/openstack-dashboard/openstack_dashboard/local/enabled/_1731_project_database_backups_panel.py*
 %{_datadir}/openstack-dashboard/openstack_dashboard/local/enabled/_1740_project_database_clusters_panel.py*
+%{_datadir}/openstack-dashboard/openstack_dashboard/local/enabled/_1760_project_database_configurations_panel.py*
 %{_sysconfdir}/openstack-dashboard/enabled/_1710_database_panel_group.py*
 %{_sysconfdir}/openstack-dashboard/enabled/_1720_project_databases_panel.py*
 %{_sysconfdir}/openstack-dashboard/enabled/_1730_project_database_backups_panel.py*
 %{_sysconfdir}/openstack-dashboard/enabled/_1731_project_database_backups_panel.py*
 %{_sysconfdir}/openstack-dashboard/enabled/_1740_project_database_clusters_panel.py*
+%{_sysconfdir}/openstack-dashboard/enabled/_1760_project_database_configurations_panel.py*
 
 %changelog
-* Thu Sep 15 2016 Haikel Guemar <hguemar@fedoraproject.org> 7.0.0-0.1
+* Wed Sep 21 2016 Alfredo Moralejo <amoralej@redhat.com> 7.0.0-0.2.0rc1
+- Update to 7.0.0.0rc1
+
+* Thu Sep 15 2016 Haikel Guemar <hguemar@fedoraproject.org> 7.0.0-0.1.0b3
 - Update to 7.0.0.0b3
 
 
