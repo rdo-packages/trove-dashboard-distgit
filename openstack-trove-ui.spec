@@ -1,4 +1,3 @@
-%global milestone .0rc3
 %global pypi_name trove-dashboard
 %global mod_name trove_dashboard
 
@@ -9,16 +8,12 @@
 
 Name:         openstack-trove-ui
 Version:      7.0.0
-Release:      0.4%{?milestone}%{?dist}
+Release:      1%{?dist}
 Summary:      Trove Management Dashboard
 
 License:      ASL 2.0
 URL:          https://github.com/openstack/%{pypi_name}
 Source0:      http://tarballs.openstack.org/%{pypi_name}/%{pypi_name}-%{upstream_version}.tar.gz
-#
-# patches_base=7.0.0.0rc3
-#
-
 BuildArch:    noarch
 
 BuildRequires: python2-devel
@@ -113,6 +108,9 @@ PYTHONPATH=/usr/share/openstack-dashboard/ ./run_tests.sh -N -P
 %{_sysconfdir}/openstack-dashboard/enabled/_1760_project_database_configurations_panel.py*
 
 %changelog
+* Thu Oct 06 2016 Haikel Guemar <hguemar@fedoraproject.org> 7.0.0-1
+- Update to 7.0.0
+
 * Thu Sep 29 2016 Haikel Guemar <hguemar@fedoraproject.org> 7.0.0-0.4.0rc3
 - Update to 7.0.0.0rc3
 
