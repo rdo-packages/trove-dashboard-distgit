@@ -7,7 +7,7 @@
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
 
 Name:         openstack-trove-ui
-Version:      7.0.0
+Version:      7.0.1
 Release:      1%{?dist}
 Summary:      Trove Management Dashboard
 
@@ -108,6 +108,9 @@ PYTHONPATH=/usr/share/openstack-dashboard/ ./run_tests.sh -N -P
 %{_sysconfdir}/openstack-dashboard/enabled/_1760_project_database_configurations_panel.py*
 
 %changelog
+* Mon Dec 05 2016 Alfredo Moralejo <amoralej@redhat.com> 7.0.1-1
+- Update to 7.0.1
+
 * Thu Oct 06 2016 Haikel Guemar <hguemar@fedoraproject.org> 7.0.0-1
 - Update to 7.0.0
 
