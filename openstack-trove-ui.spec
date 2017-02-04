@@ -62,7 +62,7 @@ mkdir -p  %{buildroot}%{_datadir}/openstack-dashboard/openstack_dashboard/local/
 pushd .
 cd %{buildroot}%{python2_sitelib}/%{mod_name}/enabled
 for f in _17*.py*; do
-    mv ${f} %{buildroot}%{_datadir}/openstack-dashboard/openstack_dashboard/local/enabled/
+    cp -p ${f} %{buildroot}%{_datadir}/openstack-dashboard/openstack_dashboard/local/enabled/
 done
 popd
 
@@ -75,7 +75,7 @@ done
 # Move static files to horizon. These require that you compile them again
 # post install { python manage.py compress }
 mkdir -p  %{buildroot}%{python2_sitelib}/%{mod_name}/static
-cp -r %{mod_name}/static/* %{buildroot}%{python2_sitelib}/%{mod_name}/static/
+cp -rp %{mod_name}/static/* %{buildroot}%{python2_sitelib}/%{mod_name}/static/
 
 # Remove .po and .pot (they are not required)
 rm -f %{buildroot}%{python2_sitelib}/%{mod_name}/locale/*/LC_*/django*.po
