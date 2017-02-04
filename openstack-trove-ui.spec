@@ -62,7 +62,7 @@ mkdir -p  %{buildroot}%{_datadir}/openstack-dashboard/openstack_dashboard/local/
 pushd .
 cd %{buildroot}%{python2_sitelib}/%{mod_name}/enabled
 for f in _17*.py*; do
-    mv ${f} %{buildroot}%{_datadir}/openstack-dashboard/openstack_dashboard/local/enabled/
+    copy ${f} %{buildroot}%{_datadir}/openstack-dashboard/openstack_dashboard/local/enabled/
 done
 popd
 
