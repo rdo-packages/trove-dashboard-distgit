@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "baada198_2aaaa119",
+        "filename": "openstack-trove-ui.spec",
+        "patchSetId": 3
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 128
+      },
+      "writtenOn": "2017-02-08T08:16:59Z",
+      "side": 1,
+      "message": "It\u0027s recommended to preserve file timestamp when copying them using cp -p or install -p. See https://fedoraproject.org/wiki/Packaging:Guidelines#Timestamps.\n\nI see other cp in line 78, would you mind to fix it too?",
+      "range": {
+        "startLine": 65,
+        "startChar": 4,
+        "endLine": 65,
+        "endChar": 6
+      },
+      "revId": "1d7d6ff47143d7c6503e4538ce1a4f9200fd66ba",
+      "serverId": "270e2033-b340-4cff-9539-693957ebf0e7",
+      "unresolved": false
+    }
+  ]
+}
