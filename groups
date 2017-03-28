@@ -1,5 +1,9 @@
-# UUID                                  	Group Name
-#
-d0e3b4b8e2e7ee3cf5bacf1818fdd2176fee98c4	openstack/trove-dashboard-distgit-ptl
-e00de708a07d5eedf0860aa9c5149dea8b1f6464	openstack/trove-dashboard-distgit-core
-global:Registered-Users                 	Registered Users
+# UUID Group Name
+global:Registered-Users	Registered Users
+a0178bbd18aaeb4a28fd34453163a0b85ab3e707	openstack/trove-dashboard-core
+4572c517702492251ad622a289176552a8acbbb2	rdo-superusers
+global:Anonymous-Users	Anonymous Users
+50662af3e3025f6edc3a9292fdcbdfc3e8cfacf8	openstack/trove-dashboard-ptl
+05a678d3d4a168e149d5e8a0063bbd1b1c5526da	Administrators
+401cf37bee35d1c809d4d957e55f2a304f8eed69	rdo-provenpackagers
+6ddfecad023c6f4fa3ac8c4d2583c502ea675a73	Non-Interactive Users
