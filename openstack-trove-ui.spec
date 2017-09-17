@@ -23,6 +23,7 @@ BuildRequires: python-oslo-sphinx
 # Required to compile translation files
 BuildRequires: python-django
 BuildRequires: gettext
+BuildRequires: openstack-macros
 
 Requires: python-babel
 Requires: openstack-dashboard
@@ -39,7 +40,7 @@ OpenStack Dashboard plugin for Trove project
 
 # Remove the requirements file so that pbr hooks don't add it
 # to distutils requires_dist config
-rm -rf {test-,}requirements.txt tools/{pip,test}-requires
+%py_req_cleanup
 rm -rf %{pypi_name}.egg-info
 
 # clean up
