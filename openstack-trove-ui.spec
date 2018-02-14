@@ -17,20 +17,24 @@ Source0:      https://tarballs.openstack.org/%{pypi_name}/%{pypi_name}-%{upstrea
 BuildArch:    noarch
 
 BuildRequires: python2-devel
-BuildRequires: python-pbr
-BuildRequires: python-sphinx
-BuildRequires: python-oslo-sphinx
+BuildRequires: python2-pbr
+BuildRequires: python2-sphinx
+BuildRequires: python2-oslo-sphinx
 # Required to compile translation files
-BuildRequires: python-django
+BuildRequires: python2-django
 BuildRequires: gettext
 BuildRequires: openstack-macros
 
-Requires: python-babel
+Requires: python2-babel
 Requires: openstack-dashboard
-Requires: python-iso8601
-Requires: python-keystoneclient
-Requires: python-swiftclient
-Requires: python-troveclient
+Requires: python2-iso8601
+Requires: python2-keystoneclient >= 1.6.0
+Requires: python2-swiftclient >= 2.2.0
+Requires: python2-troveclient >= 1.2.0
+Requires: python2-oslo-log >= 3.30.0
+Requires: python2-pbr >= 1.6
+Requires: python2-django >= 1.8
+Requires: python2-django-compressor >= 1.4
 
 %description
 OpenStack Dashboard plugin for Trove project
