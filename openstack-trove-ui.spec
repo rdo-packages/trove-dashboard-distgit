@@ -1,3 +1,4 @@
+%global milestone .0rc1
 %global pypi_name trove-dashboard
 %global mod_name trove_dashboard
 
@@ -7,13 +8,17 @@
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
 
 Name:         openstack-trove-ui
-Version:      XXX
-Release:      XXX
+Version:      11.0.0
+Release:      0.1%{?milestone}%{?dist}
 Summary:      Trove Management Dashboard
 
 License:      ASL 2.0
 URL:          https://github.com/openstack/%{pypi_name}
 Source0:      https://tarballs.openstack.org/%{pypi_name}/%{pypi_name}-%{upstream_version}.tar.gz
+#
+# patches_base=11.0.0.0rc1
+#
+
 BuildArch:    noarch
 
 BuildRequires: python2-devel
@@ -113,4 +118,7 @@ PYTHONPATH=/usr/share/openstack-dashboard/ ./run_tests.sh -N -P
 %{_sysconfdir}/openstack-dashboard/enabled/_1760_project_database_configurations_panel.py*
 
 %changelog
+* Mon Aug 20 2018 RDO <dev@lists.rdoproject.org> 11.0.0-0.1.0rc1
+- Update to 11.0.0.0rc1
+
 
