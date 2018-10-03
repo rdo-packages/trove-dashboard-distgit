@@ -1,3 +1,14 @@
+# Macros for py2/py3 compatibility
+%if 0%{?fedora} || 0%{?rhel} > 7
+%global pyver %{python3_pkgversion}
+%else
+%global pyver 2
+%endif
+%global pyver_bin python%{pyver}
+%global pyver_sitelib %python%{pyver}_sitelib
+%global pyver_install %py%{pyver}_install
+%global pyver_build %py%{pyver}_build
+# End of macros for py2/py3 compatibility
 %global pypi_name trove-dashboard
 %global mod_name trove_dashboard
 
@@ -16,25 +27,25 @@ URL:          https://github.com/openstack/%{pypi_name}
 Source0:      https://tarballs.openstack.org/%{pypi_name}/%{pypi_name}-%{upstream_version}.tar.gz
 BuildArch:    noarch
 
-BuildRequires: python2-devel
-BuildRequires: python2-pbr
-BuildRequires: python2-sphinx
-BuildRequires: python2-oslo-sphinx
+BuildRequires: python%{pyver}-devel
+BuildRequires: python%{pyver}-pbr
+BuildRequires: python%{pyver}-sphinx
+BuildRequires: python%{pyver}-oslo-sphinx
 # Required to compile translation files
-BuildRequires: python2-django
+BuildRequires: python%{pyver}-django
 BuildRequires: gettext
 BuildRequires: openstack-macros
 
-Requires: python2-babel
+Requires: python%{pyver}-babel
 Requires: openstack-dashboard
-Requires: python2-iso8601
-Requires: python2-keystoneclient >= 1.6.0
-Requires: python2-swiftclient >= 2.2.0
-Requires: python2-troveclient >= 1.2.0
-Requires: python2-oslo-log >= 3.30.0
-Requires: python2-pbr >= 1.6
-Requires: python2-django >= 1.8
-Requires: python2-django-compressor >= 1.4
+Requires: python%{pyver}-iso8601
+Requires: python%{pyver}-keystoneclient >= 1.6.0
+Requires: python%{pyver}-swiftclient >= 2.2.0
+Requires: python%{pyver}-troveclient >= 1.2.0
+Requires: python%{pyver}-oslo-log >= 3.30.0
+Requires: python%{pyver}-pbr >= 1.6
+Requires: python%{pyver}-django >= 1.8
+Requires: python%{pyver}-django-compressor >= 1.4
 
 %description
 OpenStack Dashboard plugin for Trove project
@@ -51,21 +62,21 @@ rm -rf %{pypi_name}.egg-info
 find -size 0 -not -name '__init__.py' -delete
 
 %build
-%{__python2} setup.py build
+%{pyver_build}
 # Generate i18n files
 pushd build/lib/%{mod_name}
 django-admin compilemessages
 popd
 
 %install
-%{__python2} setup.py install --skip-build --root %{buildroot}
+%{pyver_install}
 
 # Move config to horizon
 mkdir -p  %{buildroot}%{_sysconfdir}/openstack-dashboard/enabled
 mkdir -p  %{buildroot}%{_datadir}/openstack-dashboard/openstack_dashboard/local/enabled
 
 pushd .
-cd %{buildroot}%{python2_sitelib}/%{mod_name}/enabled
+cd %{buildroot}%{pyver_sitelib}/%{mod_name}/enabled
 for f in _17*.py*; do
     cp -p ${f} %{buildroot}%{_datadir}/openstack-dashboard/openstack_dashboard/local/enabled/
 done
@@ -79,12 +90,12 @@ done
 
 # Move static files to horizon. These require that you compile them again
 # post install { python manage.py compress }
-mkdir -p  %{buildroot}%{python2_sitelib}/%{mod_name}/static
-cp -rp %{mod_name}/static/* %{buildroot}%{python2_sitelib}/%{mod_name}/static/
+mkdir -p  %{buildroot}%{pyver_sitelib}/%{mod_name}/static
+cp -rp %{mod_name}/static/* %{buildroot}%{pyver_sitelib}/%{mod_name}/static/
 
 # Remove .po and .pot (they are not required)
-rm -f %{buildroot}%{python2_sitelib}/%{mod_name}/locale/*/LC_*/django*.po
-rm -f %{buildroot}%{python2_sitelib}/%{mod_name}/locale/*pot
+rm -f %{buildroot}%{pyver_sitelib}/%{mod_name}/locale/*/LC_*/django*.po
+rm -f %{buildroot}%{pyver_sitelib}/%{mod_name}/locale/*pot
 
 # Find language files
 %find_lang django --all-name
@@ -97,8 +108,8 @@ PYTHONPATH=/usr/share/openstack-dashboard/ ./run_tests.sh -N -P
 %files -f django.lang
 %doc README.rst
 %license LICENSE
-%{python2_sitelib}/%{mod_name}
-%{python2_sitelib}/*.egg-info
+%{pyver_sitelib}/%{mod_name}
+%{pyver_sitelib}/*.egg-info
 %{_datadir}/openstack-dashboard/openstack_dashboard/local/enabled/_1710_database_panel_group.py*
 %{_datadir}/openstack-dashboard/openstack_dashboard/local/enabled/_1720_project_databases_panel.py*
 %{_datadir}/openstack-dashboard/openstack_dashboard/local/enabled/_1730_project_database_backups_panel.py*
