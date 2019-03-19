@@ -36,16 +36,11 @@ BuildRequires: python%{pyver}-django
 BuildRequires: gettext
 BuildRequires: openstack-macros
 
-Requires: python%{pyver}-babel
 Requires: openstack-dashboard
-Requires: python%{pyver}-iso8601
-Requires: python%{pyver}-keystoneclient >= 1.6.0
 Requires: python%{pyver}-swiftclient >= 2.2.0
 Requires: python%{pyver}-troveclient >= 1.2.0
 Requires: python%{pyver}-oslo-log >= 3.30.0
 Requires: python%{pyver}-pbr >= 1.6
-Requires: python%{pyver}-django >= 1.8
-Requires: python%{pyver}-django-compressor >= 1.4
 
 %description
 OpenStack Dashboard plugin for Trove project
