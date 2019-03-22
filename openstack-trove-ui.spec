@@ -1,3 +1,4 @@
+%global milestone .0rc1
 # Macros for py2/py3 compatibility
 %if 0%{?fedora} || 0%{?rhel} > 7
 %global pyver %{python3_pkgversion}
@@ -18,13 +19,17 @@
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
 
 Name:         openstack-trove-ui
-Version:      XXX
-Release:      XXX
+Version:      12.0.0
+Release:      0.1%{?milestone}%{?dist}
 Summary:      Trove Management Dashboard
 
 License:      ASL 2.0
 URL:          https://github.com/openstack/%{pypi_name}
 Source0:      https://tarballs.openstack.org/%{pypi_name}/%{pypi_name}-%{upstream_version}.tar.gz
+#
+# patches_base=12.0.0.0rc1
+#
+
 BuildArch:    noarch
 
 BuildRequires: python%{pyver}-devel
@@ -119,4 +124,7 @@ PYTHONPATH=/usr/share/openstack-dashboard/ ./run_tests.sh -N -P
 %{_sysconfdir}/openstack-dashboard/enabled/_1760_project_database_configurations_panel.py*
 
 %changelog
+* Fri Mar 22 2019 RDO <dev@lists.rdoproject.org> 12.0.0-0.1.0rc1
+- Update to 12.0.0.0rc1
+
 
