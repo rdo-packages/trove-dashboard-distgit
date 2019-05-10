@@ -7,7 +7,7 @@
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
 
 Name:         openstack-trove-ui
-Version:      9.0.0
+Version:      9.0.1
 Release:      1%{?dist}
 Summary:      Trove Management Dashboard
 
@@ -110,6 +110,9 @@ PYTHONPATH=/usr/share/openstack-dashboard/ ./run_tests.sh -N -P
 %{_sysconfdir}/openstack-dashboard/enabled/_1760_project_database_configurations_panel.py*
 
 %changelog
+* Fri May 10 2019 RDO <dev@lists.rdoproject.org> 9.0.1-1
+- Update to 9.0.1
+
 * Wed Aug 30 2017 rdo-trunk <javier.pena@redhat.com> 9.0.0-1
 - Update to 9.0.0
 
