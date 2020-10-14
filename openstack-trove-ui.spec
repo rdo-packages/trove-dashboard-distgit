@@ -1,4 +1,5 @@
-%global milestone .0rc1
+%{!?sources_gpg: %{!?dlrn:%global sources_gpg 1} }
+%global sources_gpg_sign 0x2426b928085a020d8a90d0d879ab7008d0896c8a
 %global pypi_name trove-dashboard
 %global mod_name trove_dashboard
 
@@ -9,17 +10,23 @@
 
 Name:         openstack-trove-ui
 Version:      15.0.0
-Release:      0.1%{?milestone}%{?dist}
+Release:      1%{?dist}
 Summary:      Trove Management Dashboard
 
 License:      ASL 2.0
 URL:          https://github.com/openstack/%{pypi_name}
 Source0:      https://tarballs.openstack.org/%{pypi_name}/%{pypi_name}-%{upstream_version}.tar.gz
-#
-# patches_base=15.0.0.0rc1
-#
-
+# Required for tarball sources verification
+%if 0%{?sources_gpg} == 1
+Source101:        https://tarballs.openstack.org/%{pypi_name}/%{pypi_name}-%{upstream_version}.tar.gz.asc
+Source102:        https://releases.openstack.org/_static/%{sources_gpg_sign}.txt
+%endif
 BuildArch:    noarch
+
+# Required for tarball sources verification
+%if 0%{?sources_gpg} == 1
+BuildRequires:  /usr/bin/gpgv2
+%endif
 
 BuildRequires: python3-devel
 BuildRequires: python3-pbr
@@ -40,6 +47,10 @@ Requires: python3-pbr >= 1.6
 OpenStack Dashboard plugin for Trove project
 
 %prep
+# Required for tarball sources verification
+%if 0%{?sources_gpg} == 1
+%{gpgverify}  --keyring=%{SOURCE102} --signature=%{SOURCE101} --data=%{SOURCE0}
+%endif
 %setup -q -n %{pypi_name}-%{upstream_version}
 
 # Remove the requirements file so that pbr hooks don't add it
@@ -113,6 +124,10 @@ PYTHONPATH=/usr/share/openstack-dashboard/ ./run_tests.sh -N -P
 %{_sysconfdir}/openstack-dashboard/enabled/_1760_project_database_configurations_panel.py*
 
 %changelog
+* Wed Oct 14 2020 RDO <dev@lists.rdoproject.org> 15.0.0-1
+- Update to 15.0.0
+- Implement sources verification using upstream gpg signature
+
 * Thu Sep 24 2020 RDO <dev@lists.rdoproject.org> 15.0.0-0.1.0rc1
 - Update to 15.0.0.0rc1
 
