@@ -7,7 +7,7 @@
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
 
 Name:         openstack-trove-ui
-Version:      14.0.0
+Version:      14.1.0
 Release:      1%{?dist}
 Summary:      Trove Management Dashboard
 
@@ -110,6 +110,9 @@ PYTHONPATH=/usr/share/openstack-dashboard/ ./run_tests.sh -N -P
 %{_sysconfdir}/openstack-dashboard/enabled/_1760_project_database_configurations_panel.py*
 
 %changelog
+* Mon Jul 26 2021 RDO <dev@lists.rdoproject.org> 14.1.0-1
+- Update to 14.1.0
+
 * Wed May 13 2020 RDO <dev@lists.rdoproject.org> 14.0.0-1
 - Update to 14.0.0
 
