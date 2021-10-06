@@ -1,4 +1,3 @@
-%global milestone .0rc1
 %{!?sources_gpg: %{!?dlrn:%global sources_gpg 1} }
 %global sources_gpg_sign 0x4c29ff0e437f3351fd82bdf47c5a3bc787dc7035
 %global pypi_name trove-dashboard
@@ -11,14 +10,12 @@
 
 Name:         openstack-trove-ui
 Version:      17.0.0
-Release:      0.1%{?milestone}%{?dist}
+Release:      1%{?dist}
 Summary:      Trove Management Dashboard
 
 License:      ASL 2.0
 URL:          https://github.com/openstack/%{pypi_name}
 Source0:      https://tarballs.openstack.org/%{pypi_name}/%{pypi_name}-%{upstream_version}.tar.gz
-#
-# patches_base=17.0.0.0rc1
 #
 
 # Required for tarball sources verification
@@ -131,6 +128,9 @@ PYTHONPATH=/usr/share/openstack-dashboard/ ./run_tests.sh -N -P
 %{_sysconfdir}/openstack-dashboard/enabled/_1760_project_database_configurations_panel.py*
 
 %changelog
+* Wed Oct 06 2021 RDO <dev@lists.rdoproject.org> 17.0.0-1
+- Update to 17.0.0
+
 * Fri Sep 17 2021 RDO <dev@lists.rdoproject.org> 17.0.0-0.1.0rc1
 - Update to 17.0.0.0rc1
 
