@@ -126,3 +126,4 @@ PYTHONPATH=/usr/share/openstack-dashboard/ ./run_tests.sh -N -P
 %{_sysconfdir}/openstack-dashboard/enabled/_1760_project_database_configurations_panel.py*
 
 %changelog
+# REMOVEME: error caused by commit https://opendev.org/openstack/trove-dashboard/commit/61a751d0acac1b7bb95c83f5c36fd96cdfb2ed56
