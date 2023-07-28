@@ -7,13 +7,15 @@
 %bcond_with tests
 
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
+# we are excluding some BRs from automatic generator
+%global excluded_brs doc8 bandit pre-commit hacking flake8-import-order bashate sphinx openstackdocstheme
 
 Name:         openstack-trove-ui
 Version:      XXX
 Release:      XXX
 Summary:      Trove Management Dashboard
 
-License:      ASL 2.0
+License:      Apache-2.0
 URL:          https://github.com/openstack/%{pypi_name}
 Source0:      https://tarballs.openstack.org/%{pypi_name}/%{pypi_name}-%{upstream_version}.tar.gz
 # Required for tarball sources verification
@@ -29,20 +31,13 @@ BuildRequires:  /usr/bin/gpgv2
 %endif
 
 BuildRequires: python3-devel
-BuildRequires: python3-pbr
-BuildRequires: python3-sphinx
-BuildRequires: python3-oslo-sphinx
-# Required to compile translation files
-BuildRequires: python3-django
+BuildRequires: pyproject-rpm-macros
 BuildRequires: gettext
 BuildRequires: openstack-macros
+# Required to compile translation files
+BuildRequires: python3-django
 
 Requires: openstack-dashboard
-Requires: python3-swiftclient >= 2.2.0
-Requires: python3-troveclient >= 1.2.0
-Requires: python3-oslo-log >= 3.30.0
-Requires: python3-pbr >= 1.6
-
 %description
 OpenStack Dashboard plugin for Trove project
 
@@ -51,25 +46,43 @@ OpenStack Dashboard plugin for Trove project
 %if 0%{?sources_gpg} == 1
 %{gpgverify}  --keyring=%{SOURCE102} --signature=%{SOURCE101} --data=%{SOURCE0}
 %endif
-%setup -q -n %{pypi_name}-%{upstream_version}
+%autosetup -n %{pypi_name}-%{upstream_version} -S git
 
-# Remove the requirements file so that pbr hooks don't add it
-# to distutils requires_dist config
-%py_req_cleanup
-rm -rf %{pypi_name}.egg-info
 
 # clean up
 find -size 0 -not -name '__init__.py' -delete
 
+sed -i /^[[:space:]]*-c{env:.*_CONSTRAINTS_FILE.*/d tox.ini
+sed -i "s/^deps = -c{env:.*_CONSTRAINTS_FILE.*/deps =/" tox.ini
+sed -i /^minversion.*/d tox.ini
+sed -i /^requires.*virtualenv.*/d tox.ini
+
+# Exclude some bad-known BRs
+for pkg in %{excluded_brs}; do
+  for reqfile in doc/requirements.txt test-requirements.txt; do
+    if [ -f $reqfile ]; then
+      sed -i /^${pkg}.*/d $reqfile
+    fi
+  done
+done
+
+%generate_buildrequires
+%if 0%{with tests}
+  %pyproject_buildrequires -t -e %{default_toxenv}
+%else
+  %pyproject_buildrequires
+%endif
+
 %build
-%{py3_build}
-# Generate i18n files
-pushd build/lib/%{mod_name}
-django-admin compilemessages
-popd
+%pyproject_wheel
 
 %install
-%{py3_install}
+%pyproject_install
+
+# Generate i18n files
+pushd %{buildroot}%{python3_sitelib}/%{mod_name}
+django-admin compilemessages
+popd
 
 # Move config to horizon
 mkdir -p  %{buildroot}%{_sysconfdir}/openstack-dashboard/enabled
@@ -102,14 +115,14 @@ rm -f %{buildroot}%{python3_sitelib}/%{mod_name}/locale/*pot
 
 %check
 %if 0%{with tests}
-PYTHONPATH=/usr/share/openstack-dashboard/ ./run_tests.sh -N -P
+%tox -e ${default_toxenv}
 %endif
 
 %files -f django.lang
 %doc README.rst
 %license LICENSE
 %{python3_sitelib}/%{mod_name}
-%{python3_sitelib}/*.egg-info
+%{python3_sitelib}/*.dist-info
 %{_datadir}/openstack-dashboard/openstack_dashboard/local/enabled/_1710_database_panel_group.py*
 %{_datadir}/openstack-dashboard/openstack_dashboard/local/enabled/_1720_project_databases_panel.py*
 %{_datadir}/openstack-dashboard/openstack_dashboard/local/enabled/_1730_project_database_backups_panel.py*
