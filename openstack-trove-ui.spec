@@ -1,5 +1,5 @@
 %{!?sources_gpg: %{!?dlrn:%global sources_gpg 1} }
-%global sources_gpg_sign 0x01527a34f0d0080f8a5db8d6eb6c5df21b4b6363
+%global sources_gpg_sign 0x815AFEC729392386480E076DCC0DFE2D21C023C9
 %global pypi_name trove-dashboard
 %global mod_name trove_dashboard
 
@@ -9,7 +9,7 @@
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
 
 Name:         openstack-trove-ui
-Version:      18.0.0
+Version:      18.0.1
 Release:      1%{?dist}
 Summary:      Trove Management Dashboard
 
@@ -128,6 +128,9 @@ PYTHONPATH=/usr/share/openstack-dashboard/ ./run_tests.sh -N -P
 %{_sysconfdir}/openstack-dashboard/enabled/_1760_project_database_configurations_panel.py*
 
 %changelog
+* Fri Jul 28 2023 RDO <dev@lists.rdoproject.org> 18.0.1-1
+- Update to 18.0.1
+
 * Wed Mar 30 2022 RDO <dev@lists.rdoproject.org> 18.0.0-1
 - Update to 18.0.0
 
