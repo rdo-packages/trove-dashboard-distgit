@@ -3,8 +3,7 @@
 %global pypi_name trove-dashboard
 %global mod_name trove_dashboard
 
-# tests are disabled by default
-%bcond_with tests
+%bcond_without tests
 
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
 # we are excluding some BRs from automatic generator
