@@ -1,4 +1,3 @@
-%global milestone .0rc1
 %{!?sources_gpg: %{!?dlrn:%global sources_gpg 1} }
 %global sources_gpg_sign 0x815AFEC729392386480E076DCC0DFE2D21C023C9
 %global pypi_name trove-dashboard
@@ -13,14 +12,12 @@
 
 Name:         openstack-trove-ui
 Version:      21.0.0
-Release:      0.1%{?milestone}%{?dist}
+Release:      1%{?dist}
 Summary:      Trove Management Dashboard
 
 License:      Apache-2.0
 URL:          https://github.com/openstack/%{pypi_name}
 Source0:      https://tarballs.openstack.org/%{pypi_name}/%{pypi_name}-%{upstream_version}.tar.gz
-#
-# patches_base=21.0.0.0rc1
 #
 
 # Required for tarball sources verification
@@ -144,6 +141,9 @@ rm -f %{buildroot}%{python3_sitelib}/%{mod_name}/locale/*pot
 %{_sysconfdir}/openstack-dashboard/enabled/_1760_project_database_configurations_panel.py*
 
 %changelog
+* Wed Oct 04 2023 RDO <dev@lists.rdoproject.org> 21.0.0-1
+- Update to 21.0.0
+
 * Thu Sep 14 2023 RDO <dev@lists.rdoproject.org> 21.0.0-0.1.0rc1
 - Update to 21.0.0.0rc1
 
