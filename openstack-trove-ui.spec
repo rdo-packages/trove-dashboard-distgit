@@ -1,5 +1,6 @@
+%global milestone .0rc1
 %{!?sources_gpg: %{!?dlrn:%global sources_gpg 1} }
-%global sources_gpg_sign 0x2426b928085a020d8a90d0d879ab7008d0896c8a
+%global sources_gpg_sign 0x22284f69d9eccdf3df7819791c711af193ff8e54
 %global pypi_name trove-dashboard
 %global mod_name trove_dashboard
 
@@ -13,13 +14,17 @@
 %global excluded_brs doc8 bandit pre-commit hacking flake8-import-order bashate sphinx openstackdocstheme
 
 Name:         openstack-trove-ui
-Version:      XXX
-Release:      XXX
+Version:      24.0.0
+Release:      0.1%{?milestone}%{?dist}
 Summary:      Trove Management Dashboard
 
 License:      Apache-2.0
 URL:          https://github.com/openstack/%{pypi_name}
 Source0:      https://tarballs.openstack.org/%{pypi_name}/%{tarsources}-%{upstream_version}.tar.gz
+#
+# patches_base=24.0.0.0rc1
+#
+
 # Required for tarball sources verification
 %if 0%{?sources_gpg} == 1
 Source101:        https://tarballs.openstack.org/%{pypi_name}/%{tarsources}-%{upstream_version}.tar.gz.asc
@@ -141,3 +146,6 @@ rm -f %{buildroot}%{python3_sitelib}/%{mod_name}/locale/*pot
 %{_sysconfdir}/openstack-dashboard/enabled/_1760_project_database_configurations_panel.py*
 
 %changelog
+* Tue Mar 18 2025 RDO <dev@lists.rdoproject.org> 24.0.0-0.1.0rc1
+- Update to 24.0.0.0rc1
+
