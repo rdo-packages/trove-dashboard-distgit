@@ -7,6 +7,8 @@
 %bcond_with tests
 
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
+%{?dlrn: %global tarsources trove-dashboard}
+%{!?dlrn: %global tarsources trove_dashboard}
 # we are excluding some BRs from automatic generator
 %global excluded_brs doc8 bandit pre-commit hacking flake8-import-order bashate sphinx openstackdocstheme
 
@@ -17,10 +19,10 @@ Summary:      Trove Management Dashboard
 
 License:      Apache-2.0
 URL:          https://github.com/openstack/%{pypi_name}
-Source0:      https://tarballs.openstack.org/%{pypi_name}/%{pypi_name}-%{upstream_version}.tar.gz
+Source0:      https://tarballs.openstack.org/%{pypi_name}/%{tarsources}-%{upstream_version}.tar.gz
 # Required for tarball sources verification
 %if 0%{?sources_gpg} == 1
-Source101:        https://tarballs.openstack.org/%{pypi_name}/%{pypi_name}-%{upstream_version}.tar.gz.asc
+Source101:        https://tarballs.openstack.org/%{pypi_name}/%{tarsources}-%{upstream_version}.tar.gz.asc
 Source102:        https://releases.openstack.org/_static/%{sources_gpg_sign}.txt
 %endif
 BuildArch:    noarch
@@ -46,7 +48,7 @@ OpenStack Dashboard plugin for Trove project
 %if 0%{?sources_gpg} == 1
 %{gpgverify}  --keyring=%{SOURCE102} --signature=%{SOURCE101} --data=%{SOURCE0}
 %endif
-%autosetup -n %{pypi_name}-%{upstream_version} -S git
+%autosetup -n %{tarsources}-%{upstream_version} -S git
 
 
 # clean up
