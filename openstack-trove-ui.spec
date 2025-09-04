@@ -141,3 +141,4 @@ rm -f %{buildroot}%{python3_sitelib}/%{mod_name}/locale/*pot
 %{_sysconfdir}/openstack-dashboard/enabled/_1760_project_database_configurations_panel.py*
 
 %changelog
+# REMOVEME: error caused by commit https://opendev.org/openstack/trove-dashboard/commit/7772b389096c8d5933755f9eeef83b26662ee559
