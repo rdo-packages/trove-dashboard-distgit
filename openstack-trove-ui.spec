@@ -13,7 +13,7 @@
 %global excluded_brs doc8 bandit pre-commit hacking flake8-import-order bashate sphinx openstackdocstheme
 
 Name:         openstack-trove-ui
-Version:      24.0.0
+Version:      24.1.0
 Release:      1%{?dist}
 Summary:      Trove Management Dashboard
 
@@ -143,6 +143,9 @@ rm -f %{buildroot}%{python3_sitelib}/%{mod_name}/locale/*pot
 %{_sysconfdir}/openstack-dashboard/enabled/_1760_project_database_configurations_panel.py*
 
 %changelog
+* Mon Jul 20 2026 RDO <dev@lists.rdoproject.org> 24.1.0-1
+- Update to 24.1.0
+
 * Wed Apr 02 2025 RDO <dev@lists.rdoproject.org> 24.0.0-1
 - Update to 24.0.0
 
